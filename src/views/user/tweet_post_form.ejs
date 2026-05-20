@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X.com tweet post</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/common/mobile_responsive_header.css">
+    <style>
+        *{
+            padding: 0;margin: 0;box-sizing: border-box;
+        }
+        body {
+            background-color: #000000;
+            color: #e7e9ea;
+            font-family: -apple-system, sans-serif;
+        }
+        .main-container{
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+            margin-left: 240px;
+            
+        }
+        .post-container {
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #333639;
+            padding: 16px;
+            display: flex;
+        }
+
+        .profile-pic {
+            width: 48px;
+            height: 48px;
+            background-color: #333;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        .form-content {
+            flex-grow: 1;
+        }
+
+        textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #e7e9ea;
+            font-size: 20px;
+            resize: none;
+            outline: none;
+            min-height: 100px;
+        }
+
+        .audience-badge {
+            color: #1d9bf0;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 2px 12px;
+            border: 1px solid #333639;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #333639;
+            margin: 12px 0;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .icons {
+            display: flex;
+            gap: 15px;
+            color: #1d9bf0;
+            font-size: 18px;
+        }
+
+        .icons span {
+            cursor: pointer;
+        }
+
+        .post-button {
+            background-color: #1d9bf0;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .post-button:hover {
+            background-color: #1a8cd8;
+        }
+
+        .sidebar ul .li-tweetpost{
+            background-color: #1d9bf0;
+            border-radius: 10px;
+        }
+
+        @media (max-width:768px) {
+            .main-container{margin-left: 0;}
+        }
+    </style>
+    <link rel="stylesheet" href="/css/common/sidebar.css">
+</head>
+<body>
+    <!-- side bar -->
+     <%- include('../common/sidebar')  %>
+
+    <!-- main content -->
+    <div class="main-container">
+        <div class="post-container">
+        <div class="profile-pic">
+            <img src="<%= userdata.profile_picture %>" alt="" style="width: 100%;height: 100%;border-radius: 50%;">
+        </div>
+        
+        <div class="form-content">
+            <!-- <div class="audience-badge">Everyone ▾</div> -->
+            
+            <form action="/user/tweet_post" method="post" enctype="multipart/form-data">
+                <textarea placeholder="What is happening?!" name="tweet_content"></textarea>
+            
+            <div class="divider"></div>
+            
+            <div class="toolbar">
+                <input type="file" accept="image/*" name="tweet_img">
+                <button class="post-button">Post</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    <%- include('../common/mobile_responsive_header') %>
+</body>
+</html>

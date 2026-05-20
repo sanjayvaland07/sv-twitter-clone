@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile / Instagram Clone</title>
+    <link rel="stylesheet" href="/css/user_css/edit_profile.css">
+    <link rel="stylesheet" href="/css/common/sidebar.css">
+    <!-- <link rel="stylesheet" href="https://cloudflare.com"> -->
+</head>
+<body>
+    <!-- Persistent Sidebar -->
+    <%- include('../common/sidebar') %>
+
+    <main class="main-content">
+        <div class="edit-container">
+            <h2 class="page-title">Edit Profile</h2>
+
+            <form class="edit-form" action="/user/edit/<%= userdata.id %>" method="post" enctype="multipart/form-data">
+                <!-- Image Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-group">
+                        <label>Cover Photo</label>
+                        <div class="cover-preview-box">
+                            <input type="file" id="coverUpload" name="cover_upload" hidden accept="image/*"> 
+                            <label for="coverUpload" class="upload-label"><i class="fa-solid fa-camera"></i> Change Cover</label>
+                        </div>
+                    </div>
+
+                    <div class="upload-group">
+                        <label>Profile Photo</label>
+                        <div class="avatar-preview-box">
+                            <p></p>
+                            <img src='<%= userdata.profile_picture %>' alt="Current Profile">
+                            <input type="file" id="profileUpload" hidden name="profile_upload" accept="image/*">
+                            <label for="profileUpload" class="upload-label-sm">Change Photo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Fields Grid -->
+                <div class="form-grid">
+                    <div class="input-box">
+                        <label>Username</label>
+                        <input type="text" name="username" id="first_name" value="<%= userdata.username %>" placeholder="Username">
+                    </div>
+                    <div class="input-box">
+                        <label>First Name</label>
+                        <input type="text" name="first_name" id="first_name"  value="<%= userdata.first_name %>">
+                    </div>
+                    <div class="input-box">
+                        <label>Last Name</label>
+                        <input type="text" name="last_name" id="last_name"  value="<%= userdata.last_name %>">
+                    </div>
+                    <div class="input-box">
+                        <label>Email</label>
+                        <input readonly type="email" name="email" id="email" placeholder="john@example.com" value="<%= userdata.email %>">
+                    </div>
+                    <div class="input-box">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone_number" id="phone_number" placeholder="+1 234 567 890" value="<%= userdata.phone_number %>">
+                    </div>
+                    <div class="input-box">
+                        <label>Date of Joining</label>
+                        <input type="date" id="date" readonly value="">
+                    </div>
+                    <div class="input-box full-width">
+                        <label>Bio </label>
+                        <textarea rows="4" id="bio" name="bio" placeholder="Tell us about yourself..."><%=userdata.bio%></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="save-btn" id="savebtn">Save Changes</button>
+                    <button type="button" class="cancel-btn" id="cancelbtn">Cancel</button>
+                </div>
+                <div>
+                    <p style="font-size: 0.8rem;color: red;">
+                        <% if(typeof error !== "undefined" && error) { %>
+                            <%= error %>
+                        <% } %>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        const joindate = "<%= userdata.created_at %>"
+        console.log(joindate)
+        const date = new Date(joindate)
+        const month = date.getMonth()<10 ? "0"+date.getMonth() : date.getMonth();
+        const day = date.getDate()<10 ? "0"+date.getDate() : date.getDate();
+
+        document.getElementById("date").value = `${date.getFullYear()}-${month}-${day}`
+    </script>
+    <script type="module" src="/js/user/edit_profile.js"></script>
+</body>
+</html>

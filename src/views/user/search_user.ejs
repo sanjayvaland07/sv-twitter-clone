@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Users</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/common/sidebar.css">
+    <link rel="stylesheet" href="/css/common/mobile_responsive_header.css">
+    <style>
+        :root {
+            --bg: #000;
+            --border: #262626;
+            --text: #fff;
+            --gray: #8e8e8e;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, sans-serif;
+            margin: 0;
+            display: flex;
+            position: relative;
+        }
+
+        .outer-container {
+            margin-left: 240px;
+            background-color: #000;
+            color: #e7e9ea;
+            font-family: -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            flex: 1;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 600px;
+            border-left: 1px solid #333639;
+            border-right: 1px solid #333639;
+            padding: 0 16px;
+        }
+
+        /* Search Box Section */
+        .search-header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 12px 0;
+            z-index: 10;
+        }
+
+        .search-box {
+            width: 100%;
+            background-color: #202327;
+            border: 1px solid transparent;
+            border-radius: 9999px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            transition: border 0.2s, background 0.2s;
+        }
+
+        .search-box:focus-within {
+            background-color: #000;
+            border: 1px solid #1d9bf0;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            width: 100%;
+            font-size: 15px;
+            outline: none;
+        }
+
+        /* Who to Follow Section */
+        .follow-section {
+            margin-top: 20px;
+            background-color: #16181c;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            padding: 12px 16px;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .user-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #333;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            flex-grow: 1;
+            line-height: 1.2;
+        }
+
+        .display-name {
+            font-weight: bold;
+            display: block;
+            color: #fff;
+        }
+
+        .username {
+            color: #71767b;
+            font-size: 15px;
+        }
+
+        .follow-btn,
+        .view-btn {
+            background-color: #eff3f4;
+            color: #0f1419;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .follow-btn:hover {
+            background-color: #d7dbdc;
+        }
+
+        .show-more {
+            padding: 16px;
+            color: #1d9bf0;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .show-more:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .sidebar ul .li-search {
+            background-color: #1d9bf0;
+            border-radius: 10px;
+        }
+
+        @media (max-width : 768px) {
+            .outer-container {
+                margin-left: 0;
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../common/sidebar') %>
+        <div class="outer-container">
+            <div class="main-container">
+                <!-- Search Header -->
+                <div class="search-header">
+                    <div class="search-box">
+                        <input type="text" id="searchbox" placeholder="Search people...">
+                    </div>
+                </div>
+
+                <!-- Who to Follow List -->
+                <div class="follow-section" id="follow-section">
+                    <h2 class="section-title">Who to follow</h2>
+
+                    <!-- User 1 -->
+                    <% for(let i=0;i<users.length;i++){ %>
+                        <div class="user-item">
+                            <div class="avatar"
+                                style="background-image: url('<%= users[i].profile_picture %>'); background-size: cover;">
+                            </div>
+                            <div class="user-info">
+                                <span class="display-name">
+                                    <%= users[i].first_name %>
+                                        <%= users[i].last_name%>
+                                </span>
+                                <span class="username">@<%= users[i].username %></span>
+                            </div>
+                            <button class="follow-btn" data-userid="<%= users[i].id %>">Follow</button>
+                        </div>
+                        <% } %>
+
+                            <!-- <div class="show-more">Show more</div> -->
+                </div>
+            </div>
+        </div>
+
+        <%- include('../common/mobile_responsive_header') %>
+            <script>
+                const followbtn = document.querySelectorAll(".follow-btn")
+                followbtn.forEach((btn) => {
+                    btn.addEventListener("click", async (e) => {
+                        console.log(btn.dataset.userid)
+                        if (btn.dataset.userid) {
+                            const response = await fetch("/user/set_to_following", {
+                                method: 'post',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ following_id: btn.dataset.userid })
+                            })
+                            if (response.ok) {
+                                window.location.reload()
+                            } else {
+                                const data = await response.json();
+                                console.log(data)
+                                window.location.href = "/login"
+                            }
+                        }
+
+                    })
+                })
+
+                const searchbox = document.getElementById("searchbox")
+                searchbox.addEventListener("input", async () => {
+                    if (!searchbox.value.trim()) {
+                        window.location.reload();
+                        return;
+                    }
+                    const response = await fetch("/user/search_users_list", {
+                        method: 'post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ user_input: searchbox.value.trim() })
+                    })
+                    const data = await response.json();
+                    if (response.ok) {
+                        console.log(data)
+                        show_user_list(data.users)
+                    }
+                })
+
+                function show_user_list(users) {
+                    const userlist = document.getElementById("follow-section")
+                    userlist.innerHTML = ""
+                    users.forEach(user => {
+                        userlist.innerHTML += `
+                <div class="user-item">
+                <div class="avatar" style="background-image: url('${user.profile_picture}'); background-size: cover;"></div>
+                <div class="user-info">
+                    <span class="display-name">${user.first_name} ${user.last_name}</span>
+                    <span class="username">@${user.username}</span>
+                </div>
+                <button class="view-btn" data-userid="${user.id}">view user</button>
+            </div>
+                `
+                    })
+
+                    const viewbtns = document.querySelectorAll(".view-btn")
+                    viewbtns?.forEach(btn => {
+                        btn.addEventListener("click", () => [
+                            window.location.href = "/user/get_view_user_profile/" + btn.dataset.userid
+                        ])
+                    })
+                }
+
+
+            </script>
+</body>
+
+</html>

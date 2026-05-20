@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X.com Profile</title>
+
+    <link rel="stylesheet" href="/css/user_css/profile.css">
+    <link rel="stylesheet" href="/css/common/sidebar.css">
+    <link rel="stylesheet" href="/css/common/tweet.css">
+    <link rel="stylesheet" href="/css/common/follows_popup.css">
+    <link rel="stylesheet" href="/css/common/mobile_responsive_header.css">
+    <style>
+        .popup-link {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* .sidebar ul li:nth-child(4){
+            background-color: #1d9bf0;
+            border-radius: 10px;
+        } */
+        .unfollow-btn {
+            background-color: #eff3f4;
+            color: #0f1419;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .follow-btn {
+            background-color: #1d9bf0;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="https://cloudflare.com"> -->
+</head>
+
+<body>
+    <!-- comment popup -->
+    <%- include("../common/comment_popup") %>
+        <!-- side bar -->
+        <%- include('../common/sidebar') %>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Cover Picture -->
+                <div class="cover-wrapper">
+                    <img src='<%= userdata.cover_picture %>' alt="Cover" class="cover-img">
+                    <div class="cover-overlay"></div>
+                </div>
+
+                <div class="profile-container">
+                    <header class="profile-header">
+                        <div style="display: flex;flex-direction: column;">
+                            <h3 style="text-align: center;">
+                                <%= userdata.username || "sanjay" %>
+                            </h3>
+                            <div class="avatar-wrapper">
+                                <img src='<%= userdata.profile_picture %>' alt="Profile" class="profile-avatar">
+                            </div>
+                        </div>
+
+                        <div class="profile-info">
+                            <div class="user-row">
+                                <strong>
+                                    <%= userdata.first_name %>
+                                </strong> <strong>
+                                    <%= userdata.last_name %>
+                                </strong>
+                                <% if(is_follow_me && is_follow_me.length>0) { %>
+                                    <button id="unfollow-btn" class="unfollow-btn"
+                                        data-userid="<%= userdata.id %>">Unfollow</button>
+                                    <% } else {%>
+                                        <button id="follow-btn" class="follow-btn"
+                                            data-userid="<%= userdata.id %>">Follow</button>
+                                        <% } %>
+                            </div>
+
+                            <ul class="stats">
+                                <li><strong>
+                                        <%= user_tweets.length %>
+                                    </strong> tweets</li>
+                                <li><a href="" id="followersbtn" class="popup-link">
+                                        <strong>
+                                            <%= user_followers.length %>
+                                        </strong> followers
+                                    </a></li>
+                                <li><a href="" id="followingbtn" class="popup-link">
+                                        <strong>
+                                            <%= user_followings.length %>
+                                        </strong> following
+                                    </a></li>
+                            </ul>
+                            <div class="bio">
+                                <p id="timezone"></p>
+                                <%= userdata.bio %>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Post Grid -->
+                    <div class="grid-nav">
+                        <a href="#" class="active"><i class="fa-solid fa-table-cells"></i> TWEETS</a>
+                        <!-- <a href="#"><i class="fa-solid fa-clapperboard"></i> REELS</a>
+                <a href="#"><i class="fa-solid fa-user-tag"></i> TAGGED</a> -->
+                    </div>
+
+                    <div class="tweet-container">
+
+                        <!-- Tweet 1: With Image -->
+                        <% for(let i=0;i<user_tweets.length;i++) {%>
+                            <!-- <p><%= user_tweets[i].tweet_content %></p> -->
+                            <div class="tweet">
+                                <div class="profile-col">
+                                    <div class="avatar"
+                                        style="background-image: url('<%= userdata.profile_picture %>'); background-size: cover;">
+                                    </div>
+                                </div>
+                                <div class="tweet-content">
+                                    <div class="tweet-header">
+                                        <span class="display-name">
+                                            <%= userdata.username %>
+                                        </span>
+                                        <!-- <span class="username">@alex_dev</span> -->
+                                        <span class="dot">·</span>
+                                        <span class="timestamp">2h</span>
+                                    </div>
+                                    <div class="text-body">
+                                        <%= user_tweets[i].tweet_content %>
+                                    </div>
+                                    <img src="<%= user_tweets[i].media_url %>" alt="" class="tweet-image">
+                                    <div class="tweet-footer">
+                                        <div class="footer-item comment"
+                                            data-tweetid="<%= user_tweet_likes[i].tweet_id %>">
+                                            <span>💬</span><span class="comment_count"
+                                                id="comment_count_<%= user_tweet_likes[i].tweet_id %>">
+                                                <%= comments[i].comment_count %>
+                                            </span>
+                                        </div>
+                                        <div class="footer-item"><span>🔁</span> 5</div>
+                                        <div class="footer-item like"
+                                            data-tweetid="<%= user_tweet_likes[i].tweet_id %>">
+                                            <span style="font-size: 1.5rem;color: white;">
+                                                <% if(user_tweet_likes[i].like_by_me==1) {%>
+                                                    ❤️
+                                                    <% }else{ %>
+                                                        ♡
+                                                        <% } %>
+                                            </span>
+                                            <span class="like-count">
+                                                <%= user_tweet_likes[i].like_count %>
+                                            </span>
+                                        </div>
+                                        <div class="footer-item"><span>📊</span> 1.2k</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </main>
+
+            <%- include('../common/mobile_responsive_header') %>
+                <script>
+                    document.getElementById("timezone").innerHTML = "TimeZone : " + Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    // const editbtn = document.getElementById("editbtn")
+                    // editbtn.firstElementChild.style = "text-decoration:none;color:white"
+
+                    // document.getElementById("followingbtn").addEventListener("click",(e)=>{
+                    //     e.preventDefault()
+                    //     document.getElementById("following_popup").classList.remove("hide-popup")
+                    // })
+                    // document.getElementById("followersbtn").addEventListener("click",(e)=>{
+                    //     e.preventDefault()
+                    //     document.getElementById("followers_popup").classList.remove("hide-popup")
+                    // })
+                    const follow_btn = document.getElementById("follow-btn")
+                    follow_btn?.addEventListener("click", async (e) => {
+                        console.log(follow_btn.dataset.userid)
+                        if (follow_btn.dataset.userid) {
+                            const response = await fetch("/user/set_to_following", {
+                                method: 'post',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ following_id: follow_btn.dataset.userid })
+                            })
+                            if (response.ok) {
+                                window.location.reload()
+                            } else {
+                                const data = await response.json();
+                                console.log(data)
+                                window.location.href = "/login"
+                            }
+                        }
+
+                    })
+
+                    const unfollow_btn = document.getElementById("unfollow-btn")
+                    unfollow_btn?.addEventListener("click", async () => {
+                        const userid = unfollow_btn.dataset.userid
+                        if (userid) {
+                            const response = await fetch("/user/unfollow/" + userid, {
+                                method: 'delete',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+
+                            if (response.ok) {
+                                window.location.reload();
+                            } else {
+                                const data = await response.json();
+                                console.log(data);
+                            }
+                        }
+                    })
+
+                </script>
+                <script type="module" src="/js/user/tweet_functionality.js"></script>
+</body>
+
+</html>

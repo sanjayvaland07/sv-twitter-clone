@@ -1,0 +1,25 @@
+<!-- mobile top header -->
+         <div class="mobile-header">
+        <div class="header">
+            <span class="logo-text" style="font-weight: bold;font-size: 2rem;">&#120143;</span>
+        </div>
+        <div class="button-div">
+            <button id="sidebar_btn" style="cursor: pointer; font-size:1.5rem;color : white;background-color:black; border:none">☰</button>
+        </div>
+    </div>
+
+    <script>
+        const sidebar_btn = document.getElementById("sidebar_btn")
+        const sidebar_ui = document.getElementById("sidebar_ui")
+        sidebar_btn.addEventListener("click",()=>{
+            if(sidebar_btn.innerHTML == "☰"){
+                sidebar_btn.innerHTML = "❌"
+            }else{
+                sidebar_btn.innerHTML = "☰"
+            }
+            sidebar_ui.classList.toggle("show")
+        })
+
+        let close = "❌"
+        let open = "☰"
+    </script>   

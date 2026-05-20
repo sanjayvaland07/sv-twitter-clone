@@ -1,0 +1,62 @@
+<div class="modal-overlay hide-popup" id="following_popup">
+    <div class="popup">
+        <div class="popup-header">
+            <h2>Following</h2>
+            <button class="close-btn" id="popup-close-btn">&times;</button>
+        </div>
+
+        <div class="following-list">
+            <!-- User Item -->
+            <% for(let i=0;i<user_followings.length;i++){ %>
+                <!-- <p><%= user_followings[i].username %></p> -->
+                <div class="user-item">
+                    <div class="avatar">
+                        <img style="width: 100%;height: 100%;border-radius: 50%;"
+                            src="<%= user_followings[i].profile_picture %>" alt="">
+                    </div>
+                    <div class="user-info">
+                        <span class="username">
+                            <%= user_followings[i].username %>
+                        </span>
+                        <span class="full-name">
+                            <%= user_followings[i].first_name %>
+                                <%= user_followings[i].last_name %>
+                        </span>
+                    </div>
+                    <button class="unfollow-btn" id="unfollowbtn"
+                        data-userid="<%= user_followings[i].id %>">Unfollow</button>
+                </div>
+                <% } %>
+
+                    <!-- Add more user-items as needed -->
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("popup-close-btn").addEventListener("click", (e) => {
+        document.getElementById("following_popup").classList.add("hide-popup")
+    })
+
+    const unfollowbtns = document.querySelectorAll(".unfollow-btn")
+    unfollowbtns?.forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+            const userid = unfollowbtn.dataset.userid
+            if (userid) {
+                const response = await fetch("/user/unfollow/" + userid, {
+                    method: 'delete',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    const data = await response.json();
+                    console.log(data);
+                }
+            }
+        })
+    });
+</script>

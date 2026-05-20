@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x.com OTP varification</title>
+    <link rel="stylesheet" href="/css/login_style.css">
+</head>
+<body>
+    <div class="logo-container">
+            <img src="/assets/x_logo.jpeg" alt="logo" id="img-logo">
+        </div>
+   <div class="container">
+    <h1 style="text-align: center;margin-bottom: 20px;">OTP Verification</h1>
+     <form action="">
+        <div>
+            <label for="otp_input">Enter the OTP : </label>
+            <input type="text" name="otp_input" id="otp_input">
+            <p id="countdown"></p>
+        </div>
+        <div>
+            <input type="submit" value="verify otp" id="submitbtn" class="submitbtn">
+        <p id="error-msg"></p>
+        </div>
+        
+    </form>
+    <script>
+        const submitbtn=document.getElementById("submitbtn")
+        const otp_input = document.getElementById("otp_input")
+        const error_msg = document.getElementById("error-msg")
+        submitbtn.addEventListener("click",async (e)=>{
+            e.preventDefault()
+            if(validate_otp()){
+                const response = await fetch("/otp_verification",{
+                    method : 'post',
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    },
+                    body : JSON.stringify({otp : otp_input.value.trim()})
+                })
+                if(response.ok){
+                    alert("otp verified")
+                    window.location.href = "/reset_password"
+                }else{
+                    const data = await response.json()
+                    error_msg.innerHTML = data.msg;
+                }
+                
+            }
+        })
+        function validate_otp(){
+            const regex = /^[0-9]{4,}$/
+            console.log(otp_input.value)
+            if(otp_input.value.trim() == "" || !regex.test(otp_input.value)){
+                otp_input.style.borderColor = "red"
+                error_msg.innerHTML = "invalid otp"
+                return false
+            }
+            return true
+        }
+        otp_input.addEventListener("focus",()=>{
+            otp_input.style.borderColor = ""
+            error_msg.innerHTML = ""
+        })
+
+        const countdown = document.getElementById("countdown")
+        let min = 1
+        let sec = 60
+        const timer = setInterval(()=>{
+            sec--;
+            if(sec==0){
+                min--
+                if(min<0){
+                    countdown.innerHTML = "otp validity : 00 : 00"
+                    clearInterval(timer)
+                    return;
+                }
+                sec = 59
+            }
+            countdown.innerHTML = "otp validity : "+min+" : "+sec;
+        },1000)
+    </script>
+   </div>
+</body>
+</html>
