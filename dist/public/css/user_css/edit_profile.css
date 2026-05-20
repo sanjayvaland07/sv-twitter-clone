@@ -1,0 +1,73 @@
+:root {
+    --bg: #000;
+    --card-bg: #121212;
+    --border: #262626;
+    --text: #fff;
+    --blue: #0095f6;
+    --gray: #8e8e8e;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, sans-serif;
+    margin: 0;
+    display: flex;
+}
+
+/* Reuse Sidebar from previous turn */
+.sidebar { width: 240px; height: 100vh; border-right: 1px solid var(--border); position: fixed; padding: 20px; }
+.main-content { margin-left: 240px; flex: 1; display: flex; justify-content: center; padding: 40px; }
+
+.edit-container {
+    width: 100%;
+    max-width: 700px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.page-title { margin-bottom: 30px; font-size: 24px; }
+
+/* Image Uploads */
+.upload-section { display: flex; gap: 30px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.cover-preview-box {
+    width: 200px; height: 100px; background: #222; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.avatar-preview-box { display: flex; align-items: center; gap: 15px; }
+.avatar-preview-box img { width: 60px; height: 60px; border-radius: 50%; }
+
+.upload-label, .upload-label-sm { color: var(--blue); cursor: pointer; font-weight: 600; font-size: 14px; }
+
+/* Form Layout */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.full-width { grid-column: span 2; }
+
+.input-box label { display: block; font-size: 12px; color: var(--gray); margin-bottom: 8px; }
+.input-box input, .input-box textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 4px; padding: 10px; color: white; outline: none;
+}
+.input-box input:focus { border-color: var(--gray); }
+
+.form-actions { margin-top: 30px; display: flex; gap: 15px; }
+.save-btn { background: var(--blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+.cancel-btn { background: transparent; color: white; border: none; cursor: pointer; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .sidebar { width: 70px; }
+    .sidebar span { display: none; }
+    .main-content { margin-left: 70px; padding: 15px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .full-width { grid-column: span 1; }
+    .upload-section { flex-direction: column; }
+}

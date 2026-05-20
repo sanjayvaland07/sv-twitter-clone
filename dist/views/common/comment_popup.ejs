@@ -1,0 +1,56 @@
+<div class="modal-overlay hide-popup" id="comment_popup">
+    <div class="popup">
+        <div class="popup-header">
+            <h2>Comments</h2>
+            <button class="close-btn" id="popup-close-comment">&times;</button>
+        </div>
+
+        <div class="following-list">
+            <!-- User Item -->
+
+
+            <!-- Add more user-items as needed -->
+
+
+
+            <div class="comment-list" id="comment-list">
+
+            </div>
+
+
+        </div>
+        <div class="comment-inputbox">
+            <input type="text" name="comment_input" id="comment_input">
+            <button id="post_comment">Comment</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("popup-close-followers")?.addEventListener("click", (e) => {
+        console.log("click")
+        document.getElementById("followers_popup").classList.add("hide-popup")
+    })
+
+    // const remove_followers = document.querySelectorAll(".unfollow-btn")
+    // remove_followers?.forEach(btn => {
+    //     btn.addEventListener("click", async (e) => {
+    //         const userid = remove_follower.dataset.userid
+    //         if (userid) {
+    //             const response = await fetch("/user/remove_follower/" + userid, {
+    //                 method: 'delete',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             })
+
+    //             if (response.ok) {
+    //                 window.location.reload();
+    //             } else {
+    //                 const data = await response.json();
+    //                 console.log(data);
+    //             }
+    //         }
+    //     })
+    // })
+</script>

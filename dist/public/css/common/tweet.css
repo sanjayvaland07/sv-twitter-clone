@@ -1,0 +1,88 @@
+        .tweet-container {
+            width: 100%;
+            max-width: 600px;
+            /* border-left: 1px solid #333639; */
+            /* border-right: 1px solid #333639; */
+        }
+
+        /* Individual Tweet Styling */
+        .tweet {
+            margin: 10px 0;
+            display: flex;
+            padding: 12px 16px;
+            border: 1px solid #333639;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px grey;
+        }
+
+        .tweet:hover {
+            background-color: #080808;
+        }
+
+        /* Profile Image */
+        .profile-col {
+            margin-right: 12px;
+        }
+
+        .tweet-container .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Content Area */
+        .tweet-container .tweet-content {
+            flex: 1;
+        }
+
+        .tweet-container .tweet-header {
+            display: flex;
+            gap: 5px;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .display-name { font-weight: bold; color: #fff; }
+        .username, .dot, .timestamp { color: #71767b; }
+
+        .text-body {
+            font-size: 15px;
+            line-height: 20px;
+            margin-bottom: 12px;
+            white-space: pre-wrap;  
+        }
+
+        /* Media Upload Image */
+        .tweet-image {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid #333639;
+            margin-bottom: 12px;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        /* Footer Icons */
+        .tweet-footer {
+            display: flex;
+            justify-content: space-between;
+            max-width: 425px;
+            color: #71767b;
+            font-size: 13px;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .footer-item:hover.comment { color: #1d9bf0; }
+        .footer-item:hover.like { color: #f91880; }
+
+        .icon { font-size: 16px; }

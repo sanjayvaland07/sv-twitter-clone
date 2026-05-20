@@ -1,0 +1,30 @@
+ <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar_ui">
+        <div class="sidebar-logo" style="text-align: center;">
+            <span class="logo-text" style="font-weight: bold;font-size: 4rem;">&#120143;</span>
+        </div>
+        <ul class="nav-links">
+            <li class="li-home"><a href="/user/home" class="active"> <span>Home</span></a></li>
+            <li class="li-search"><a href="/user/search"><span>Search</span></a></li>
+            <!-- <li><a href="#"> <span>Explore</span></a></li> -->
+            <li class="li-profile"><a href="/user/profile"> <span>Profile</span></a></li>
+            <!-- <li><a href="#" <span>Messages</span></a></li> -->
+            <!-- <li><a href="#"><span>Notifications</span></a></li> -->
+            <li class="li-tweetpost"><a href="/user/tweet_post"> <span>Tweet Post</span></a></li>
+            <li class="logout-link"><a id="logout_link" href="#"> <span>Log out</span></a></li>
+        </ul>
+    </nav>
+
+    <script>
+        document.getElementById("logout_link").addEventListener("click",(e)=>{
+            e.preventDefault();
+            console.log("logout")
+            fetch("/logout",{
+            method : 'post',
+        }).then((response)=>{
+            if(response.ok){
+                window.location.reload()
+            }
+        })
+        })
+    </script>

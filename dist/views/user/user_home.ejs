@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x.com Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/common/sidebar.css">
+    <link rel="stylesheet" href="/css/common/tweet.css">
+    <link rel="stylesheet" href="/css/common/mobile_responsive_header.css">
+    <link rel="stylesheet" href="/css/common/follows_popup.css">
+    <style>
+        :root {
+            --bg: #000;
+            --border: #262626;
+            --text: #fff;
+            --gray: #8e8e8e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, sans-serif;
+            margin: 0;
+            display: flex;
+            position: relative;
+        }
+
+        .main-container {
+            margin-left: 240px;
+            display: flex;
+            justify-content: center;
+            width: 100vw;
+        }
+
+        .text-body {
+            white-space: unset;
+        }
+
+        .sidebar ul .li-home{
+            background-color: #1d9bf0;
+            border-radius: 10px;
+        }
+
+        
+
+        @media (max-width: 768px) {
+    .main-container { margin-left: 0px; margin-top: 40px;}
+    }   
+    </style>
+</head>
+
+<body>
+    <%- include("../common/comment_popup") %>
+    <%- include("../common/sidebar") %>
+        <div class="main-container">
+            <div class="tweet-container">
+
+                <!-- Tweet 1: With Image -->
+                <% for(let i=0;i<data.length;i++) {%>
+                    <!-- <p><%= data[i].tweet_content %></p> -->
+                    <div class="tweet">
+                        <div class="profile-col">
+                            <div class="avatar"
+                                style="background-image: url('<%= data[i].profile_picture %>'); background-size: cover;">
+                            </div>
+                        </div>
+                        <div class="tweet-content">
+                            <div class="tweet-header" onclick="openUserProfile('<%= data[i].user_id %>')">
+                                <span class="display-name">
+                                    <%= data[i].username %>
+                                </span>
+                                <!-- <span class="username">@alex_dev</span> -->
+                                <span class="dot">·</span>
+                                <span class="timestamp">2h</span>
+                            </div>
+                            <div class="text-body">
+                                <%= data[i].tweet_content %>
+                            </div>
+                            <img src="<%= data[i].media_url %>" alt="" class="tweet-image">
+                            <div class="tweet-footer">
+                                <div class="footer-item comment" data-tweetid="<%= data[i].tweet_id %>">
+                                    <span>💬</span><span class="comment_count" id="comment_count_<%= data[i].tweet_id %>"><%= comments[i].comment_count %></span>
+                                </div>
+                                <div class="footer-item retweet-btn" data-tweetid="<%= data[i].tweet_id %>"><span>🔁</span><span id="retweet_count"><%= retweet[i].retweet_count %></span></div>
+                                <div class="footer-item like" data-tweetid="<%= data[i].tweet_id %>">
+                                    <span style="font-size: 1.5rem;color: white;">
+                                        <% if(likes[i].like_by_me == 1) {%>
+                                            ❤️
+                                        <% }else{ %>
+                                            ♡
+                                        <% } %>
+                                    </span>
+                                    <span class="like-count"><%= likes[i].like_count %></span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+
+        <%- include('../common/mobile_responsive_header') %>
+        <script>
+            function openUserProfile(userid){
+                console.log(userid)
+                window.location.href = "/user/get_view_user_profile/"+userid
+            }
+        </script>
+        <script type="module" src="/js/user/tweet_functionality.js"></script>
+</body>
+
+</html>

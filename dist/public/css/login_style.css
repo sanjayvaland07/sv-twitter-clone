@@ -1,0 +1,73 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.container{
+    padding: 30px;
+    border: 1px solid wheat;
+    border-radius: 10px;
+}
+
+.container form > div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.container form div > input{
+    width: 250px;
+    height: 40px;
+    padding: 5px;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.submitbtn{
+    background-color: #00aeff !important;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 5px;
+    height: 30px;
+    width: 100%;
+}
+
+#img-logo{
+    width: 150px;
+    height: 100px;
+}
+
+#forget-password-link{
+    color: #00aeff;
+    text-decoration: none;
+    text-align: right;
+    cursor: pointer;
+}
+#register-link{
+    color: #00aeff;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.error-msg,#error-msg{
+            color: rgb(255, 74, 74);
+            font-size: .8rem;
+        }

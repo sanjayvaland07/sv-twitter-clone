@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x.com register</title>
+    <link rel="stylesheet" href="/css/register_style.css">
+    <style>
+        .error-msg,
+        #error-msg {
+            left: 10px;
+            bottom: -20px;
+            position: absolute;
+            color: rgb(255, 105, 105);
+            font-size: .7rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="/assets/x_logo.jpeg" alt="logo" id="img-logo">
+        </div>
+        <h1 style="text-align: center;">Twitter</h1>
+        <form action="">
+            <div class="fields-container">
+                <div>
+                    <label for="username">Username : </label>
+                    <input type="text" name="username" id="username">
+                    <p class="error-msg" id="username-error"></p><br><br>
+                </div>
+
+                <div>
+                    <label for="fname">First Name : </label>
+                    <input type="text" name="fname" id="fname">
+                    <p class="error-msg" id="fname-error"></p><br><br>
+                </div>
+
+                <div>
+                    <label for="lname">Last Name : </label>
+                    <input type="text" name="lname" id="lname">
+                    <p class="error-msg" id="lname-error"></p><br><br>
+                </div>
+
+                <div>
+                    <label for="email">Email : </label>
+                    <input type="text" name="email" id="email">
+                    <p class="error-msg" id="email-error"></p><br><br>
+                </div>
+
+                <div>
+                    <label for="phone_number">Phone Number : </label>
+                    <input type="text" name="phone_number" id="phone_number">
+                    <p class="error-msg" id="phone_number-error"></p> <br><br>
+                </div>
+
+                <div>
+                    <label for="password">Password : </label>
+                    <input type="password" name="password" id="password">
+                    <p class="error-msg" id="password-error"></p><br><br>
+                </div>
+
+                <div>
+                    <label for="confirm_password">Confirm Password : </label>
+                    <input type="password" name="confirm_password" id="confirm_password">
+                    <p class="error-msg" id="confirm_password-error"></p><br><br>
+                </div>
+                
+            </div>
+
+            <div style="margin-bottom: 20px;display: flex;align-items: center; justify-content: center; gap: 10px;">
+                <div>
+                    <p>Captcha</p>
+                <div id="captcha-div"></div>
+                </div>
+                <input type="text" name="captcha_input" id="captcha_input">
+            </div>
+
+            <input type="submit" value="Register" id="register_btn">
+            <div style="position: relative;">
+                <p id="error-msg"></p>
+            </div>
+            <div style="width: 100%;display: flex;justify-content: center; margin-top: 20px;">
+                <a href="/login" style="text-decoration: none; color: #00aeff;">Already have account?</a>
+            </div>
+        </form>
+    </div>
+    <script type="module" src="/js/common/captcha.js"></script>
+    <script type="module" src="/js/register_script.js"></script>
+</body>
+
+</html>
