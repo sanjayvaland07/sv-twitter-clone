@@ -41,7 +41,7 @@
     const unfollowbtns = document.querySelectorAll(".unfollow-btn")
     unfollowbtns?.forEach(btn => {
         btn.addEventListener("click", async (e) => {
-            const userid = unfollowbtn.dataset.userid
+            const userid = btn.dataset.userid
             if (userid) {
                 const response = await fetch("/user/unfollow/" + userid, {
                     method: 'delete',

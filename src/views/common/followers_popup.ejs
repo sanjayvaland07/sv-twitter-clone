@@ -42,7 +42,7 @@
     const remove_followers = document.querySelectorAll(".unfollow-btn")
     remove_followers?.forEach(btn => {
         btn.addEventListener("click", async (e) => {
-            const userid = remove_follower.dataset.userid
+            const userid = btn.dataset.userid
             if (userid) {
                 const response = await fetch("/user/remove_follower/" + userid, {
                     method: 'delete',
