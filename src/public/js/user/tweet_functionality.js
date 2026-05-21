@@ -135,7 +135,6 @@ async function show_comments(tweet_id) {
                         </span>
                         <span class="full-name">
                             ${comments[i].message.toString()}
-                            ${console.log(comments[i].message)}
                         </span>
                     </div>
         </div>

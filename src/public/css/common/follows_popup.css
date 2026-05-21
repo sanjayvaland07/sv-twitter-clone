@@ -25,6 +25,7 @@
     max-width: 400px;
     border-radius: 12px;
     overflow: scroll;
+    scrollbar-width: none;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
@@ -131,5 +132,6 @@
 
 .comment-list{
     overflow: scroll;
+    scrollbar-width: none;
     max-width: 400px;
 }
